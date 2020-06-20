@@ -23,13 +23,22 @@
     <ClInclude Include="Rule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BussinessClient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DataIOClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BussinessClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

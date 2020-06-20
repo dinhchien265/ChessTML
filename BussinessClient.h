@@ -15,17 +15,7 @@
 
 #pragma comment(lib,"Ws2_32.lib")
 
-enum messType { LOGIN = 5, LOGOUT = 8 };
-enum errorCode { SUCCESS = 0, INCORRECT_USER_NAME_OR_PASSWORD = 10, ACC_HAS_BLOCKED = 12, LOGGED_IN, NOT_LOGGED_IN, ALLREADY_LOGGED_IN };
 
-struct Message {
-	int messType;
-	int code;
-	char userName[30];
-	char passWord[30];
-	char ip[20];
-	char move[4];
-};
 
 
 // handle message from server and display to the screen

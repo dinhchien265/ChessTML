@@ -89,7 +89,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\DinhChien\Documents\Visual Studio 2015\Projects\testSFML\Client\sfml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DinhChien\Documents\Visual Studio 2015\Projects\testSFML\Client;C:\Users\DinhChien\Documents\Visual Studio 2015\Projects\testSFML\Client\sfml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,8 +158,11 @@
   <ItemGroup>
     <ClInclude Include="BussinessClient.h" />
     <ClInclude Include="DataIOClient.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameMenu.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Rule.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
