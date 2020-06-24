@@ -89,12 +89,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\DinhChien\Documents\Visual Studio 2015\Projects\testSFML\testSFML\sfml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\testSFML\Client\sfml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\DinhChien\Documents\Visual Studio 2015\Projects\testSFML\testSFML\sfml\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\testSFML\testSFML\sfml\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
@@ -158,8 +158,15 @@
   <ItemGroup>
     <ClInclude Include="BussinessClient.h" />
     <ClInclude Include="DataIOClient.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameMenu.h" />
+    <ClInclude Include="GameMenuGraphic.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Rule.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\Debug\menu.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
