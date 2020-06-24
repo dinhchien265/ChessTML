@@ -99,16 +99,13 @@ void updateBoard(std::string str, int board[8][8]) {
 
 unsigned __stdcall startGaneThread(void* param) {
 	SOCKET client = (SOCKET)param;
-	RenderWindow window(VideoMode(504, 504), "The Chess! (press SPACE)");
+	RenderWindow window(VideoMode(1280, 720), "Game Player", sf::Style::Fullscreen);
 	Texture t1, t2;
 	t1.loadFromFile("images/figures.png");
 	t2.loadFromFile("images/board.png");
-
 	for (int i = 0; i < 32; i++) f[i].setTexture(t1);
 	Sprite sBoard(t2);
-
 	loadPosition();
-
 	bool isMove = false;
 	float dx = 0, dy = 0;
 	Vector2f oldPos, newPos;

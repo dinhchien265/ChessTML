@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include "Game.h"
-enum gameFunction { INVITE = 1, WAIT = 2, RANKING = 3, BACK = 4 };
+#include "GameMenuGraphic.h"
+enum gameFunction { INVITE = 0, WAIT = 1, RANKING = 2, BACK = 3 };
 
 int handleGame(int status, SOCKET s) {
 	switch (status)
@@ -22,12 +23,56 @@ int handleGame(int status, SOCKET s) {
 }
 
 void startMenuGame(SOCKET s) {
-	int status = 0;
-	system("cls");
-	std::cout << "\n1.Invite people";
-	std::cout << "\n2.Wait people";
-	std::cout << "\n3.Ranking";
-	std::cout << "\n4.Back\n";
-	std::cin >> status;
-	handleGame(status, s);
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "Chess", sf::Style::Fullscreen);
+	Menu menu(window.getSize().x, window.getSize().y);
+	sf::Music music;
+	if (!music.openFromFile("menu.wav")) {
+	}
+	music.play();
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case sf::Event::KeyReleased:
+				switch (event.key.code)
+				{
+				case sf::Keyboard::Up:
+					menu.MoveUp();
+					break;
+
+				case sf::Keyboard::Down:
+					menu.MoveDown();
+					break;
+
+				case sf::Keyboard::Return:
+					switch (menu.GetPressedItem())
+					{
+					case INVITE:
+						window.setVisible(false);
+						handleGame(INVITE, s);
+						break;
+					case 1:
+						std::cout << "Option button has been pressed" << std::endl;
+						break;
+					case 2:
+						window.close();
+						break;
+					}
+					break;
+				}
+				break;
+			case sf::Event::Closed:
+				window.close();
+				break;
+			}
+		}
+		window.clear();
+		menu.draw(window);
+		window.display();
+	}
 }
+
+
