@@ -3,6 +3,20 @@
 #include <WS2tcpip.h>
 #pragma comment(lib,"Ws2_32.lib")
 
+
+enum messType { LOGIN = 5, LOGOUT = 8, TIM_NGUOI_CHOI, THACH_DAU, CHO_THACH_DAU, TRA_LOI_THACH_DAU, GUI_NUOC_DI };
+enum code { SUCCESS = 0, INCORRECT_USER_NAME_OR_PASSWORD = 10, ACC_HAS_BLOCKED = 12, LOGGED_IN, NOT_LOGGED_IN, ALLREADY_LOGGED_IN, ACCEPT, REFUSE };
+
+struct Message {
+	int messType; //opcode
+	int code;	// success or false
+	char userName[30];
+	char passWord[30];
+	char move[4];
+	char opponent[60]; // name of opponent
+};
+
+
 // wrapped of send
 int sendMessage(SOCKET s, char*buff, int len) {
 

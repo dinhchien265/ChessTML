@@ -23,9 +23,12 @@
     <ClInclude Include="Rule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="BussinessClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+=======
+>>>>>>> 0d7cc2ae99a6fbb7c7a7dfde283b28bfff508fe8
     <ClInclude Include="DataIOClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>

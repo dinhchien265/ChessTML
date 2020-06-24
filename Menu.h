@@ -14,6 +14,10 @@
 
 #pragma comment(lib,"Ws2_32.lib")
 
+<<<<<<< HEAD
+=======
+void menu(SOCKET s);
+>>>>>>> 0d7cc2ae99a6fbb7c7a7dfde283b28bfff508fe8
 
 // Generate a menu and handle user choose
 void menu(SOCKET s) {
