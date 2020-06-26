@@ -97,18 +97,15 @@ void updateBoard(std::string str, int board[8][8]) {
 	board[y1][x1] = 0;
 }
 
-unsigned __stdcall startGaneThread(void* param) {
+void startGaneThread(void* param) {
 	SOCKET client = (SOCKET)param;
-	RenderWindow window(VideoMode(504, 504), "The Chess! (press SPACE)");
+	RenderWindow window(VideoMode(700, 700), "Game Player");
 	Texture t1, t2;
 	t1.loadFromFile("images/figures.png");
 	t2.loadFromFile("images/board.png");
-
 	for (int i = 0; i < 32; i++) f[i].setTexture(t1);
 	Sprite sBoard(t2);
-
 	loadPosition();
-
 	bool isMove = false;
 	float dx = 0, dy = 0;
 	Vector2f oldPos, newPos;
@@ -152,21 +149,16 @@ unsigned __stdcall startGaneThread(void* param) {
 					newPos = Vector2f(size*int(p.x / size), size*int(p.y / size));
 					str = toChessNote(oldPos) + toChessNote(newPos);
 					if (oldPos != newPos) position += str + " ";
+					if (myColor == BLACK) {
+						str = convertMove(str);
+						std::cout << "\n" << str;
+					}
 					if (check(str, board, turn) == 1) {
 						turn = turn*-1;
 						move(str);
 						f[n].setPosition(newPos);
-						if (myColor == BLACK) {
-							std::string convertStr = convertMove(str);
-							updateBoard(convertStr, board);
-							std::cout << "\n" << (convertStr);
-							send(client, convertStr.c_str(), 4, 0);
-						}
-						else {
-							updateBoard(str, board);
-							std::cout << "\n" << str;
-							send(client, str.c_str(), 4, 0);
-						}
+						updateBoard(str, board);
+						send(client, str.c_str(), 4, 0);
 					}
 					else f[n].setPosition(oldPos);
 					printBoard(board);
@@ -209,5 +201,5 @@ unsigned __stdcall startGaneThread(void* param) {
 		for (int i = 0; i < 32; i++) f[i].move(-offset);
 		window.display();
 	}
-	return 0;
+
 }
