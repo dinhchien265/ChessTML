@@ -148,16 +148,17 @@ void startGaneThread(void* param) {
 					Vector2f p = f[n].getPosition() + Vector2f(size / 2, size / 2);
 					newPos = Vector2f(size*int(p.x / size), size*int(p.y / size));
 					str = toChessNote(oldPos) + toChessNote(newPos);
-					if (oldPos != newPos) position += str + " ";
+					std::string convertedPosition = str;
 					if (myColor == BLACK) {
-						str = convertMove(str);
-						std::cout << "\n" << str;
+						convertedPosition = convertMove(str);
+						std::cout << "\n" << convertedPosition;
 					}
-					if (check(str, board, turn) == 1) {
+					if (oldPos != newPos) position += str + " ";
+					if (check(convertedPosition, board, turn) == 1) {
 						turn = turn*-1;
 						move(str);
 						f[n].setPosition(newPos);
-						updateBoard(str, board);
+						updateBoard(convertedPosition, board);
 						send(client, str.c_str(), 4, 0);
 					}
 					else f[n].setPosition(oldPos);
