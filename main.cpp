@@ -8,14 +8,11 @@
 #include<iostream>
 #define SERVER_ADDR "127.0.0.1"
 #define BUFF_SIZE 2048
-<<<<<<< HEAD
 #pragma comment(lib,"Ws2_32.lib")
 #include "GameMenuGraphic.h"
-=======
-
+#include "GameMenu2.h"
 #pragma comment(lib,"Ws2_32.lib")
 
->>>>>>> 0d7cc2ae99a6fbb7c7a7dfde283b28bfff508fe8
 
 
 
@@ -49,7 +46,7 @@ int main()
 	//Step 5: Communicate with server
 	char buff[BUFF_SIZE];
 	int ret;
-	// startMenuGame(client);
+	//startMenuGame(client);
 
 	//Step 5: Communicate with server 
 	menu(client);

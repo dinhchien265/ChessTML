@@ -8,7 +8,7 @@
 #include <WinSock2.h>
 #include <WS2tcpip.h>
 #include <iostream>
-#include "GameMenu.h"
+#include "GameMenu2.h"
 #define SERVER_PORT 5500
 #define SERVER_ADDR "127.0.0.1"
 #define BUFF_SIZE 2048
@@ -55,7 +55,6 @@ void Login(SOCKET s) {
 	std::cout << "Password : ";
 	gets_s(message.passWord, 30);
 	sendMessage(s, (char*)&message, sizeof(Message));
-
 	Message mess;
 	recvMessage(s, (char*)&mess, sizeof(mess));
 	handleMessage(mess, s);

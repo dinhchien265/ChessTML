@@ -99,7 +99,7 @@ void updateBoard(std::string str, int board[8][8]) {
 
 unsigned __stdcall startGaneThread(void* param) {
 	SOCKET client = (SOCKET)param;
-	RenderWindow window(VideoMode(1280, 720), "Game Player", sf::Style::Fullscreen);
+	RenderWindow window(VideoMode(700, 700), "Game Player");
 	Texture t1, t2;
 	t1.loadFromFile("images/figures.png");
 	t2.loadFromFile("images/board.png");
