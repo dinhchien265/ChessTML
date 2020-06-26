@@ -8,7 +8,9 @@
 #include<iostream>
 #define SERVER_ADDR "127.0.0.1"
 #define BUFF_SIZE 2048
-
+#pragma comment(lib,"Ws2_32.lib")
+#include "GameMenuGraphic.h"
+#include "GameMenu2.h"
 #pragma comment(lib,"Ws2_32.lib")
 
 
@@ -22,7 +24,7 @@ int main()
 	if (WSAStartup(wVersion, &wsaData))
 		printf("Version is not supported\n");
 
-	//Step 2: Construct socket	
+	//Step 2: Construct socket
 	SOCKET client;
 	client = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
@@ -33,7 +35,7 @@ int main()
 	serverAddr.sin_port = htons(5500);
 	serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-	//Step 4: Request to connect server
+	//Step 4: Request to connect serverk
 	if (connect(client, (sockaddr *)&serverAddr, sizeof(serverAddr))) {
 		printf("Error! Cannot connect server. %d", WSAGetLastError());
 		_getch();
@@ -41,9 +43,12 @@ int main()
 	}
 	printf("Connected server!\n");
 
-	//Step 5: Communicate with server 
+	//Step 5: Communicate with server
 	char buff[BUFF_SIZE];
 	int ret;
+	//startMenuGame(client);
+
+	//Step 5: Communicate with server 
 	menu(client);
 	return 0;
 }

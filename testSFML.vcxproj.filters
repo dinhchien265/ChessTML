@@ -23,6 +23,12 @@
     <ClInclude Include="Rule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="BussinessClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+=======
+>>>>>>> 0d7cc2ae99a6fbb7c7a7dfde283b28bfff508fe8
     <ClInclude Include="DataIOClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -32,14 +38,19 @@
     <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BussinessClient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameMenuGraphic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\Debug\menu.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>
