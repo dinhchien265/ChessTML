@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include <winsock2.h>
 #include <WS2tcpip.h>
 #pragma comment(lib,"Ws2_32.lib")
@@ -12,8 +13,9 @@ struct Message {
 	int code;	// success or false
 	char userName[30];
 	char passWord[30];
-	char move[4];
+	char move[5];
 	char opponent[60]; // name of opponent
+	int color;
 };
 
 
@@ -27,7 +29,7 @@ int sendMessage(SOCKET s, char*buff, int len) {
 	while (nLeft > 0) {
 		ret = send(s, &buff[idx], nLeft, 0);
 		if (ret == SOCKET_ERROR) {
-
+			return 0;
 		}
 		nLeft -= ret;
 		idx += ret;
@@ -43,7 +45,7 @@ int recvMessage(SOCKET s, char*buff,int len) {
 	{
 		ret = recv(s, &buff[idx], nLeft, 0);
 		if (ret == SOCKET_ERROR) {
-			return SOCKET_ERROR;
+			return 0;
 		}
 		nLeft -= ret;
 		idx += ret;

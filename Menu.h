@@ -20,7 +20,7 @@ void menu(SOCKET s) {
 	while (1) {
 		char choose;
 		system("cls");
-		std::cout << "1. Login" << std::endl << "2. Logout" << std::endl << "3. Exit";
+		std::cout << "1. Login" << std::endl << "2. Logout" << std::endl << "3. Exit"<<"\nsocket: "<<s;
 		choose = _getch();
 		switch (choose)
 		{
