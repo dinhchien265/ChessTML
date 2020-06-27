@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include "Rule.h"
 #include "Utils.h"
 enum color { WHITE = -1, BLACK = 1 };
@@ -9,6 +10,7 @@ enum color { WHITE = -1, BLACK = 1 };
 #include <iostream>
 #include <winsock2.h>
 #include <WS2tcpip.h>
+#include "DataIOClient.h"
 #pragma comment(lib,"Ws2_32.lib")
 using namespace sf;
 
@@ -97,8 +99,9 @@ void updateBoard(std::string str, int board[8][8]) {
 	board[y1][x1] = 0;
 }
 
-void startGaneThread(void* param) {
-	SOCKET client = (SOCKET)param;
+void startGaneThread(SOCKET s,Message mess) {
+	SOCKET client = s;
+	myColor = mess.color;
 	RenderWindow window(VideoMode(700, 700), "Game Player");
 	Texture t1, t2;
 	t1.loadFromFile("images/figures.png");
@@ -152,14 +155,22 @@ void startGaneThread(void* param) {
 					std::string convertPosition=str;
 					if (myColor == BLACK) {
 						convertPosition = convertMove(str);
-						std::cout << "\n" << str;
 					}
+					std::cout << "\n" << convertPosition;
 					if (check(convertPosition, board, turn) == 1) {
 						turn = turn*-1;
 						move(str);
 						f[n].setPosition(newPos);
 						updateBoard(convertPosition, board);
-						send(client, convertPosition.c_str(), 4, 0);
+						mess.messType = GUI_NUOC_DI;
+						mess.move[0] = convertPosition[0];
+						mess.move[1] = convertPosition[1];
+						mess.move[2] = convertPosition[2];
+						mess.move[3] = convertPosition[3];
+						mess.move[4] = '\n';
+						int ret = sendMessage(s, (char*)&mess, sizeof(Message));
+						std::cout << "\nret= " << ret<<"socket: "<<s;
+
 					}
 					else f[n].setPosition(oldPos);
 					printBoard(board);

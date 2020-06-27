@@ -68,7 +68,7 @@ void startMenuGame(SOCKET s) {
 								if (mess.code == SUCCESS)
 								{
 									window.setVisible(false);
-									startGaneThread((void*)s);
+									startGaneThread(s,mess);
 								}
 							}
 						}
@@ -100,7 +100,7 @@ void startMenuGame(SOCKET s) {
 							if (mess.messType == TRA_LOI_THACH_DAU) {
 								if (mess.code == SUCCESS) {
 									window.setVisible(false);
-									startGaneThread((void*)s);
+									startGaneThread(s,mess);
 								};
 							}
 						}

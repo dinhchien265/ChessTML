@@ -1,4 +1,5 @@
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <conio.h>
 #include "Game.h"
@@ -41,7 +42,7 @@ int main()
 		_getch();
 		return 0;
 	}
-	printf("Connected server!\n");
+	printf("Connected server! socket %d\n",client);
 
 	//Step 5: Communicate with server
 	char buff[BUFF_SIZE];
