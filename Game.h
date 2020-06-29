@@ -167,9 +167,9 @@ void startGaneThread(SOCKET s,Message mess) {
 						mess.move[1] = convertPosition[1];
 						mess.move[2] = convertPosition[2];
 						mess.move[3] = convertPosition[3];
-						mess.move[4] = '\n';
+						mess.move[4] = '\0';
 						int ret = sendMessage(s, (char*)&mess, sizeof(Message));
-						std::cout << "\nret= " << ret<<"socket: "<<s;
+						std::cout << "\nret= " << ret<<"\nsocket: "<<s;
 
 					}
 					else f[n].setPosition(oldPos);

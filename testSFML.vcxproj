@@ -159,6 +159,7 @@
     <ClInclude Include="BussinessClient.h" />
     <ClInclude Include="DataIOClient.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameMenu2.h" />
     <ClInclude Include="GameMenuGraphic.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Menu.h" />

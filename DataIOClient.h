@@ -16,6 +16,7 @@ struct Message {
 	char move[5];
 	char opponent[60]; // name of opponent
 	int color;
+	bool end = true;
 };
 
 
