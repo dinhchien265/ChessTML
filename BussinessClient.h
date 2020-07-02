@@ -8,7 +8,7 @@
 #include <WinSock2.h>
 #include <WS2tcpip.h>
 #include <iostream>
-#include "GameMenu2.h"
+#include "GameMenu.h"
 #define SERVER_PORT 5500
 #define SERVER_ADDR "127.0.0.1"
 #define BUFF_SIZE 2048
@@ -73,3 +73,4 @@ void Logout(SOCKET s) {
 	handleMessage(mess, s);
 	return;
 }
+

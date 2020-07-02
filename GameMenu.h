@@ -4,6 +4,8 @@
 #include "GameMenuGraphic.h"
 #include "DataIOClient.h"
 #include "WaitingGraphic.h"
+#include <thread>
+#include <future>
 enum gameFunction { INVITE = 0, WAIT = 1, RANKING = 2, BACK = 3 };
 
 int handleGame(int status, SOCKET s) {
@@ -33,6 +35,11 @@ void startMenuGame(SOCKET s) {
 	//if (!music.openFromFile("menu.wav")) {
 	//}
 	//music.play();
+	sf::Texture w;
+	if (!w.loadFromFile("waiting.png")) {
+
+	};
+	sf::RectangleShape waiting(sf::Vector2f(700.0f, 700.0f));
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -68,42 +75,14 @@ void startMenuGame(SOCKET s) {
 								if (mess.code == SUCCESS)
 								{
 									window.setVisible(false);
-									startGaneThread(s,mess);
+									startGaneThread(s, mess);
 								}
 							}
 						}
 						break;
 					case WAIT:
-						mess.messType = CHO_THACH_DAU;
-						ret = sendMessage(s, (char*)&mess, sizeof(Message));
-						ret = recvMessage(s, (char*)&mess, sizeof(Message));
 						window.setVisible(false);
-						//waitingWindows();
-						if (mess.messType == THACH_DAU) {
-							std::cout << mess.opponent << " thach dau\nClich 1 to accept, 2 to refuse";
-							scanf_s("%c", &choose);
-							mess.messType = TRA_LOI_THACH_DAU;
-							switch (choose)
-							{
-							case '1':
-								mess.code = ACCEPT;
-								ret = sendMessage(s, (char*)&mess, sizeof(Message));
-								break;
-							case '2':
-								mess.code = REFUSE;
-								ret = sendMessage(s, (char*)&mess, sizeof(Message));
-								break;
-							default:
-								break;
-							}
-							ret = recvMessage(s, (char*)&mess, sizeof(Message));
-							if (mess.messType == TRA_LOI_THACH_DAU) {
-								if (mess.code == SUCCESS) {
-									window.setVisible(false);
-									startGaneThread(s,mess);
-								};
-							}
-						}
+						waitingWindows(window);
 						break;
 					case RANKING:
 						break;

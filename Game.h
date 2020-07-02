@@ -99,7 +99,7 @@ void updateBoard(std::string str, int board[8][8]) {
 	board[y1][x1] = 0;
 }
 
-void startGaneThread(SOCKET s,Message mess) {
+void startGaneThread(SOCKET s, Message mess) {
 	SOCKET client = s;
 	myColor = mess.color;
 	RenderWindow window(VideoMode(700, 700), "Game Player");
@@ -152,7 +152,7 @@ void startGaneThread(SOCKET s,Message mess) {
 					newPos = Vector2f(size*int(p.x / size), size*int(p.y / size));
 					str = toChessNote(oldPos) + toChessNote(newPos);
 					if (oldPos != newPos) position += str + " ";
-					std::string convertPosition=str;
+					std::string convertPosition = str;
 					if (myColor == BLACK) {
 						convertPosition = convertMove(str);
 					}
@@ -169,7 +169,7 @@ void startGaneThread(SOCKET s,Message mess) {
 						mess.move[3] = convertPosition[3];
 						mess.move[4] = '\n';
 						int ret = sendMessage(s, (char*)&mess, sizeof(Message));
-						std::cout << "\nret= " << ret<<"socket: "<<s;
+						std::cout << "\nret= " << ret << "socket: " << s;
 
 					}
 					else f[n].setPosition(oldPos);
