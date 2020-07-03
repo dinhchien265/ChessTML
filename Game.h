@@ -19,6 +19,9 @@ typedef struct {
 } GameParam;
 int turn = WHITE;
 int myColor = BLACK;
+SOCKET client;
+Message mess;
+bool flag;
 
 int size = 56;
 Vector2f offset(28, 28);
@@ -27,7 +30,7 @@ Sprite f[32]; //figures
 std::string position = "";
 
 int board[8][8] =
-{ -1,-2,-3,-4,-5,-3,-2,-1,
+{ -1,-2,-3,-4,-5,-3,-2,-1, //quan trang so am, quan den so duong
 -6,-6,-6,-6,-6,-6,-6,-6,
 0, 0, 0, 0, 0, 0, 0, 0,
 0, 0, 0, 0, 0, 0, 0, 0,
@@ -102,10 +105,16 @@ void updateBoard(std::string str, int board[8][8]) {
 	board[y1][x1] = 0;
 }
 
+unsigned __stdcall recvThread(void* param) {
+	int ret = recvMessage(client, (char*)&mess, sizeof(Message));
+	flag = true;
+	return 0;
+}
+
 void startGaneThread(GameParam params) {
 	SOCKET s = params.s;
 	Message mess = params.mess;
-	SOCKET client = s;
+	client = s;
 	myColor = mess.color;
 	RenderWindow window(VideoMode(1280.0f, 720.f), "Game Player");
 	Texture t1, t2;
@@ -119,6 +128,15 @@ void startGaneThread(GameParam params) {
 	Vector2f oldPos, newPos;
 	std::string str;
 	int n = 0;
+
+	if (mess.color == 1) {
+		int ret = recvMessage(s, (char*)&mess, sizeof(Message));
+		str = std::string(mess.move);
+		move(convertMove(str));
+		updateBoard(str,board);
+		turn *= -1;
+		printBoard(board);
+	}
 
 	while (window.isOpen())
 	{
@@ -174,8 +192,9 @@ void startGaneThread(GameParam params) {
 						mess.move[3] = convertPosition[3];
 						mess.move[4] = '\0';
 						int ret = sendMessage(s, (char*)&mess, sizeof(Message));
-						std::cout << "\nret= " << ret << "socket: " << s;
-						std::cout << "\nret= " << ret << "\nsocket: " << s;
+						std::cout << "\nret= " << ret<<"\nsocket: "<<s;
+						_beginthreadex(0, 0, recvThread, (void*)client, 0, 0);
+
 					}
 					else f[n].setPosition(oldPos);
 					printBoard(board);
@@ -183,9 +202,14 @@ void startGaneThread(GameParam params) {
 		}
 
 		//comp move
-		if (Keyboard::isKeyPressed(Keyboard::Space))
+		if (flag==true)
 		{
-			str = "d7d1";
+			str = std::string(mess.move);
+			move(convertMove(str));
+			updateBoard(str, board);
+			turn *= -1;
+			printBoard(board);
+			flag = false;
 
 			oldPos = toCoord(str[0], str[1]);
 			newPos = toCoord(str[2], str[3]);
