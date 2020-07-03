@@ -64,7 +64,7 @@ void Menu::drawWaiting(sf::RenderWindow &window) {
 	if (!w.loadFromFile("waiting.png")) {
 
 	};
-	sf::RectangleShape waiting(sf::Vector2f(700.0f, 700.0f));
+	sf::RectangleShape waiting(sf::Vector2f(1280.f, 720.0f));
 	waiting.setTexture(&w);
 	window.draw(waiting);
 }
@@ -74,7 +74,7 @@ void Menu::draw(sf::RenderWindow &window)
 	if (!t.loadFromFile("background.png")) {
 
 	};
-	sf::RectangleShape background(sf::Vector2f(700.0f, 700.0f));
+	sf::RectangleShape background(sf::Vector2f(1280.f, 720.0f));
 	background.setTexture(&t);
 	window.draw(background);
 	for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)

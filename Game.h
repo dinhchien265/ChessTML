@@ -13,7 +13,10 @@ enum color { WHITE = -1, BLACK = 1 };
 #include "DataIOClient.h"
 #pragma comment(lib,"Ws2_32.lib")
 using namespace sf;
-
+typedef struct {
+	SOCKET s;
+	Message mess;
+} GameParam;
 int turn = WHITE;
 int myColor = BLACK;
 
@@ -99,10 +102,12 @@ void updateBoard(std::string str, int board[8][8]) {
 	board[y1][x1] = 0;
 }
 
-void startGaneThread(SOCKET s, Message mess) {
+void startGaneThread(GameParam params) {
+	SOCKET s = params.s;
+	Message mess = params.mess;
 	SOCKET client = s;
 	myColor = mess.color;
-	RenderWindow window(VideoMode(700, 700), "Game Player");
+	RenderWindow window(VideoMode(1280.0f, 720.f), "Game Player");
 	Texture t1, t2;
 	t1.loadFromFile("images/figures.png");
 	t2.loadFromFile("images/board.png");
@@ -169,12 +174,8 @@ void startGaneThread(SOCKET s, Message mess) {
 						mess.move[3] = convertPosition[3];
 						mess.move[4] = '\0';
 						int ret = sendMessage(s, (char*)&mess, sizeof(Message));
-<<<<<<< HEAD
 						std::cout << "\nret= " << ret << "socket: " << s;
-=======
-						std::cout << "\nret= " << ret<<"\nsocket: "<<s;
->>>>>>> 43149d057dbe4245f65b5f17aff5251e46a16ed5
-
+						std::cout << "\nret= " << ret << "\nsocket: " << s;
 					}
 					else f[n].setPosition(oldPos);
 					printBoard(board);

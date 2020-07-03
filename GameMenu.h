@@ -1,11 +1,8 @@
 #pragma once
 #include <iostream>
-#include "Game.h"
 #include "GameMenuGraphic.h"
 #include "DataIOClient.h"
 #include "WaitingGraphic.h"
-#include <thread>
-#include <future>
 enum gameFunction { INVITE = 0, WAIT = 1, RANKING = 2, BACK = 3 };
 
 int handleGame(int status, SOCKET s) {
@@ -29,17 +26,13 @@ void startMenuGame(SOCKET s) {
 	int ret;
 	Message mess;
 	char choose;
-	sf::RenderWindow window(sf::VideoMode(700, 700), "Chess");
+	GameParam params;
+	sf::RenderWindow window(sf::VideoMode(1280.f, 720.f), "Chess");
 	Menu menu(window.getSize().x, window.getSize().y);
 	//sf::Music music;
 	//if (!music.openFromFile("menu.wav")) {
 	//}
 	//music.play();
-	sf::Texture w;
-	if (!w.loadFromFile("waiting.png")) {
-
-	};
-	sf::RectangleShape waiting(sf::Vector2f(700.0f, 700.0f));
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -75,14 +68,16 @@ void startMenuGame(SOCKET s) {
 								if (mess.code == SUCCESS)
 								{
 									window.setVisible(false);
-									startGaneThread(s, mess);
+									params.s = s;
+									params.mess = mess;
+									startGaneThread(params);
 								}
 							}
 						}
 						break;
 					case WAIT:
-						window.setVisible(false);
-						waitingWindows(window);
+						mess.messType = CHO_THACH_DAU;
+						handleWWaiting(mess, s, window);
 						break;
 					case RANKING:
 						break;
@@ -103,5 +98,3 @@ void startMenuGame(SOCKET s) {
 		window.display();
 	}
 }
-
-
