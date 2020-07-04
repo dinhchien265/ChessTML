@@ -56,6 +56,7 @@ Vector2f toCoord(char a, char b)
 
 void move(std::string str)
 {
+	if (str.length() != 4) return;
 	Vector2f oldPos = toCoord(str[0], str[1]);
 	Vector2f newPos = toCoord(str[2], str[3]);
 
@@ -113,10 +114,10 @@ unsigned __stdcall recvThread(void* param) {
 
 void startGaneThread(GameParam params) {
 	SOCKET s = params.s;
-	Message mess = params.mess;
+	mess = params.mess;
 	client = s;
 	myColor = mess.color;
-	RenderWindow window(VideoMode(1280.0f, 720.f), "Game Player");
+	RenderWindow window(VideoMode(720.f, 720.f), "Game Player");
 	Texture t1, t2;
 	t1.loadFromFile("images/figures.png");
 	t2.loadFromFile("images/board.png");
@@ -130,12 +131,7 @@ void startGaneThread(GameParam params) {
 	int n = 0;
 
 	if (mess.color == 1) {
-		int ret = recvMessage(s, (char*)&mess, sizeof(Message));
-		str = std::string(mess.move);
-		move(convertMove(str));
-		updateBoard(str,board);
-		turn *= -1;
-		printBoard(board);
+		_beginthreadex(0, 0, recvThread, (void*)client, 0, 0);
 	}
 
 	while (window.isOpen())
@@ -148,15 +144,9 @@ void startGaneThread(GameParam params) {
 			if (e.type == Event::Closed)
 				window.close();
 
-			////move back//////
-			if (e.type == Event::KeyPressed)
-				if (e.key.code == Keyboard::BackSpace)
-				{
-					if (position.length() > 6) position.erase(position.length() - 6, 5); loadPosition();
-				}
 
 			/////drag and drop///////
-			if (e.type == Event::MouseButtonPressed)
+			if (myColor == turn && e.type == Event::MouseButtonPressed)
 				if (e.key.code == Mouse::Left)
 					for (int i = 0; i < 32; i++)
 						if (f[i].getGlobalBounds().contains(pos.x, pos.y))
@@ -167,7 +157,7 @@ void startGaneThread(GameParam params) {
 							oldPos = f[i].getPosition();
 						}
 
-			if (e.type == Event::MouseButtonReleased)
+			if (myColor == turn && e.type == Event::MouseButtonReleased)
 				if (e.key.code == Mouse::Left)
 				{
 					isMove = false;
@@ -180,7 +170,7 @@ void startGaneThread(GameParam params) {
 						convertPosition = convertMove(str);
 					}
 					std::cout << "\n" << convertPosition;
-					if (check(convertPosition, board, turn) == 1) {
+					if (myColor == turn && check(convertPosition, board, turn) == 1) {
 						turn = turn*-1;
 						move(str);
 						f[n].setPosition(newPos);
@@ -192,7 +182,7 @@ void startGaneThread(GameParam params) {
 						mess.move[3] = convertPosition[3];
 						mess.move[4] = '\0';
 						int ret = sendMessage(s, (char*)&mess, sizeof(Message));
-						std::cout << "\nret= " << ret<<"\nsocket: "<<s;
+						std::cout << "\nret= " << ret << "\nsocket: " << s;
 						_beginthreadex(0, 0, recvThread, (void*)client, 0, 0);
 
 					}
@@ -202,34 +192,37 @@ void startGaneThread(GameParam params) {
 		}
 
 		//comp move
-		if (flag==true)
+		if (flag == true)
 		{
 			str = std::string(mess.move);
-			move(convertMove(str));
+			if (myColor == 1)
+				move(convertMove(str));
+			else move(str);
 			updateBoard(str, board);
 			turn *= -1;
 			printBoard(board);
 			flag = false;
 
-			oldPos = toCoord(str[0], str[1]);
-			newPos = toCoord(str[2], str[3]);
+			//oldPos = toCoord(str[0], str[1]);
+			//newPos = toCoord(str[2], str[3]);
 
-			for (int i = 0; i < 32; i++) if (f[i].getPosition() == oldPos) n = i;
+			//for (int i = 0; i < 32; i++) if (f[i].getPosition() == oldPos) n = i;
 
-			/////animation///////
-			for (int k = 0; k < 50; k++)
-			{
-				Vector2f p = newPos - oldPos;
-				f[n].move(p.x / 50, p.y / 50);
-				window.draw(sBoard);
-				for (int i = 0; i < 32; i++) f[i].move(offset);
-				for (int i = 0; i < 32; i++) window.draw(f[i]); window.draw(f[n]);
-				for (int i = 0; i < 32; i++) f[i].move(-offset);
-				window.display();
-			}
+			///////animation///////
+			//for (int k = 0; k < 50; k++)
+			//{
+			//	Vector2f p = newPos - oldPos;
+			//	f[n].move(p.x / 50, p.y / 50);
+			//	window.draw(sBoard);
+			//	for (int i = 0; i < 32; i++) f[i].move(offset);
+			//	for (int i = 0; i < 32; i++) window.draw(f[i]); window.draw(f[n]);
+			//	for (int i = 0; i < 32; i++) f[i].move(-offset);
+			//	window.display();
+			//}
 
-			move(str);  position += str + " ";
-			f[n].setPosition(newPos);
+			//move(str);  position += str + " ";
+			//f[n].setPosition(newPos);
+			//str.clear();
 		}
 
 		if (isMove) f[n].setPosition(pos.x - dx, pos.y - dy);
