@@ -13,7 +13,10 @@ enum color { WHITE = -1, BLACK = 1 };
 #include "DataIOClient.h"
 #pragma comment(lib,"Ws2_32.lib")
 using namespace sf;
-
+typedef struct {
+	SOCKET s;
+	Message mess;
+} GameParam;
 int turn = WHITE;
 int myColor = BLACK;
 SOCKET client;
@@ -108,11 +111,12 @@ unsigned __stdcall recvThread(void* param) {
 	return 0;
 }
 
-void startGaneThread(SOCKET s,Message message) {
-	mess = message;
+void startGaneThread(GameParam params) {
+	SOCKET s = params.s;
+	Message mess = params.mess;
 	client = s;
 	myColor = mess.color;
-	RenderWindow window(VideoMode(700, 700), "Game Player");
+	RenderWindow window(VideoMode(1280.0f, 720.f), "Game Player");
 	Texture t1, t2;
 	t1.loadFromFile("images/figures.png");
 	t2.loadFromFile("images/board.png");
@@ -171,7 +175,7 @@ void startGaneThread(SOCKET s,Message message) {
 					newPos = Vector2f(size*int(p.x / size), size*int(p.y / size));
 					str = toChessNote(oldPos) + toChessNote(newPos);
 					if (oldPos != newPos) position += str + " ";
-					std::string convertPosition=str;
+					std::string convertPosition = str;
 					if (myColor == BLACK) {
 						convertPosition = convertMove(str);
 					}

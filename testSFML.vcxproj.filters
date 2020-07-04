@@ -11,7 +11,6 @@
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Rule.h" />
-    <ClInclude Include="GameMenu2.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\Debug\menu.wav" />

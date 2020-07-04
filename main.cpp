@@ -11,7 +11,7 @@
 #define BUFF_SIZE 2048
 #pragma comment(lib,"Ws2_32.lib")
 #include "GameMenuGraphic.h"
-#include "GameMenu2.h"
+#include "GameMenu.h"
 #pragma comment(lib,"Ws2_32.lib")
 
 
@@ -42,7 +42,7 @@ int main()
 		_getch();
 		return 0;
 	}
-	printf("Connected server! socket %d\n",client);
+	printf("Connected server! socket %d\n", client);
 
 	//Step 5: Communicate with server
 	char buff[BUFF_SIZE];

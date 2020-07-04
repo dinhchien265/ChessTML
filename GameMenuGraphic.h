@@ -12,6 +12,7 @@ public:
 	~Menu();
 
 	void draw(sf::RenderWindow &window);
+	void drawWaiting(sf::RenderWindow &window);
 	void MoveUp();
 	void MoveDown();
 	int GetPressedItem() { return selectedItemIndex; }
@@ -56,14 +57,24 @@ Menu::Menu(float width, float height)
 Menu::~Menu()
 {
 }
+void Menu::drawWaiting(sf::RenderWindow &window) {
+	window.clear(sf::Color::Black);
+	sf::Texture w;
+	std::cout << "this is my story";
+	if (!w.loadFromFile("waiting.png")) {
 
+	};
+	sf::RectangleShape waiting(sf::Vector2f(1280.f, 720.0f));
+	waiting.setTexture(&w);
+	window.draw(waiting);
+}
 void Menu::draw(sf::RenderWindow &window)
 {
 	sf::Texture t;
 	if (!t.loadFromFile("background.png")) {
 
 	};
-	sf::RectangleShape background(sf::Vector2f(700.0f, 700.0f));
+	sf::RectangleShape background(sf::Vector2f(1280.f, 720.0f));
 	background.setTexture(&t);
 	window.draw(background);
 	for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
