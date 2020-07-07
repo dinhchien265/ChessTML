@@ -56,6 +56,7 @@ Vector2f toCoord(char a, char b)
 
 void move(std::string str)
 {
+	printf("\nGoi lenh move\n");
 	if (str.length() != 4) return;
 	Vector2f oldPos = toCoord(str[0], str[1]);
 	Vector2f newPos = toCoord(str[2], str[3]);
@@ -112,12 +113,12 @@ unsigned __stdcall recvThread(void* param) {
 	return 0;
 }
 
-void startGaneThread(GameParam params) {
+void startGameThread(GameParam params) {
 	SOCKET s = params.s;
 	mess = params.mess;
 	client = s;
 	myColor = mess.color;
-	RenderWindow window(VideoMode(720.f, 720.f), "Game Player");
+	RenderWindow window(VideoMode(520.f, 520.f), "Game Player");
 	Texture t1, t2;
 	t1.loadFromFile("images/figures.png");
 	t2.loadFromFile("images/board.png");
@@ -129,6 +130,7 @@ void startGaneThread(GameParam params) {
 	Vector2f oldPos, newPos;
 	std::string str;
 	int n = 0;
+	float px=0, py=0;
 
 	if (mess.color == 1) {
 		_beginthreadex(0, 0, recvThread, (void*)client, 0, 0);
@@ -141,8 +143,11 @@ void startGaneThread(GameParam params) {
 		Event e;
 		while (window.pollEvent(e))
 		{
-			if (e.type == Event::Closed)
+			if (e.type == Event::Closed) {
+				mess.messType == Xin_thua;
+				int ret = sendMessage(s, (char*)&mess, sizeof(Message));
 				window.close();
+			}
 
 
 			/////drag and drop///////
@@ -174,6 +179,8 @@ void startGaneThread(GameParam params) {
 						turn = turn*-1;
 						move(str);
 						f[n].setPosition(newPos);
+						px = oldPos.x;
+						py = oldPos.y;
 						updateBoard(convertPosition, board);
 						mess.messType = GUI_NUOC_DI;
 						mess.move[0] = convertPosition[0];
@@ -194,38 +201,37 @@ void startGaneThread(GameParam params) {
 		//comp move
 		if (flag == true)
 		{
-			str = std::string(mess.move);
-			if (myColor == 1)
-				move(convertMove(str));
-			else move(str);
-			updateBoard(str, board);
-			turn *= -1;
-			printBoard(board);
-			flag = false;
-
-			//oldPos = toCoord(str[0], str[1]);
-			//newPos = toCoord(str[2], str[3]);
-
-			//for (int i = 0; i < 32; i++) if (f[i].getPosition() == oldPos) n = i;
-
-			///////animation///////
-			//for (int k = 0; k < 50; k++)
-			//{
-			//	Vector2f p = newPos - oldPos;
-			//	f[n].move(p.x / 50, p.y / 50);
-			//	window.draw(sBoard);
-			//	for (int i = 0; i < 32; i++) f[i].move(offset);
-			//	for (int i = 0; i < 32; i++) window.draw(f[i]); window.draw(f[n]);
-			//	for (int i = 0; i < 32; i++) f[i].move(-offset);
-			//	window.display();
-			//}
-
-			//move(str);  position += str + " ";
-			//f[n].setPosition(newPos);
-			//str.clear();
+			if (mess.messType == GUI_NUOC_DI) {
+				str = std::string(mess.move);
+				if (myColor == 1)
+					move(convertMove(str));
+				else move(str);
+				updateBoard(str, board);
+				turn *= -1;
+				printBoard(board);
+				flag = false;
+			}
+			else if (mess.messType == ENDGAME) {
+				if (mess.code == WIN) {
+					printf("\nYOU WIN");
+					printf("\n%s", mess.opponent);
+				}
+				else
+				{
+					printf("\nYOU LOSE");
+					printf("\n%s", mess.opponent);
+				}
+				return;
+			}
 		}
 
-		if (isMove) f[n].setPosition(pos.x - dx, pos.y - dy);
+
+
+		if (isMove) {
+			if ((pos.x - dx )!= px||(pos.y - dy)!=py) {
+				f[n].setPosition(pos.x - dx, pos.y - dy);
+			}
+		}
 
 		////// draw  ///////
 		window.clear();

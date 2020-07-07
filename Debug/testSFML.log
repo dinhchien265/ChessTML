@@ -1,25 +1,26 @@
-﻿Build started 7/4/2020 11:54:58 PM.
+﻿Build started 7/7/2020 10:07:19 PM.
      1>Project "C:\Users\DinhChien\Documents\Visual Studio 2015\Projects\testSFML\Client\testSFML.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\Users\DinhChien\Documents\Visual Studio 2015\Projects\testSFML\Client\sfml\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
      1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(91): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(96): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(120): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(152): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(164): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(165): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\waitinggraphic.h(6): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\waitinggraphic.h(39): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\waitinggraphic.h(33): warning C4101: 'choose': unreferenced local variable
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\gamemenu.h(30): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\gamemenu.h(31): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\gamemenu.h(28): warning C4101: 'choose': unreferenced local variable
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(89): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(92): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(97): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(121): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(147): warning C4553: '==': operator has no effect; did you intend '='?
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(157): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(169): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\game.h(170): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\waitinggraphic.h(7): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\waitinggraphic.h(40): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\waitinggraphic.h(34): warning C4101: 'choose': unreferenced local variable
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\gamemenu.h(34): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\gamemenu.h(35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\gamemenu.h(32): warning C4101: 'choose': unreferenced local variable
      1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\main.cpp(48): warning C4101: 'buff': unreferenced local variable
      1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\main.cpp(49): warning C4101: 'ret': unreferenced local variable
-     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\gamemenu.h(23): warning C4715: 'handleGame': not all control paths return a value
+     1>c:\users\dinhchien\documents\visual studio 2015\projects\testsfml\client\gamemenu.h(27): warning C4715: 'handleGame': not all control paths return a value
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\DinhChien\Documents\Visual Studio 2015\Projects\testSFML\Debug\testSFML.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\DinhChien\Documents\Visual Studio 2015\Projects\testSFML\Client\sfml\lib" "sfml-system-d.lib" "sfml-graphics-d.lib" "sfml-audio-d.lib" "sfml-network-d.lib" "sfml-window-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\DinhChien\Documents\Visual Studio 2015\Projects\testSFML\Debug\testSFML.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\DinhChien\Documents\Visual Studio 2015\Projects\testSFML\Debug\testSFML.lib" /MACHINE:X86 Debug\main.obj
          testSFML.vcxproj -> C:\Users\DinhChien\Documents\Visual Studio 2015\Projects\testSFML\Debug\testSFML.exe
@@ -27,4 +28,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:07.89
+Time Elapsed 00:00:02.00

@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <iostream>
+#include "gamemenu.h"
 void  waitingWindows()
 {
 	RenderWindow window(VideoMode(1280.f, 720.f), "Waiting");
@@ -58,6 +59,9 @@ void handleWWaiting(Message mess, SOCKET s, RenderWindow &previouswindow) {
 			windowChoose.display();
 			Event e;
 			while (windowChoose.pollEvent(e)) {
+				if (e.type == Event::Closed) {
+					windowChoose.close();
+				}
 				if (e.type == Event::KeyPressed) {
 					if (e.key.code == Keyboard::Num1)
 					{
@@ -80,10 +84,9 @@ void handleWWaiting(Message mess, SOCKET s, RenderWindow &previouswindow) {
 		if (mess.messType == TRA_LOI_THACH_DAU) {
 			if (mess.code == SUCCESS) {
 				GameParam params = { s, mess };
-				sf::Thread gameThread(&startGaneThread, params);
-				gameThread.launch();
 				previouswindow.setVisible(false);
-				//waitingThreadDisplay.terminate();
+				waitingThreadDisplay.terminate();
+				startGameThread(params);
 			};
 		}
 	}

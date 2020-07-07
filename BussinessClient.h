@@ -15,30 +15,30 @@
 
 #pragma comment(lib,"Ws2_32.lib")
 
-
-
 // handle message from server and display to the screen
 void handleMessage(Message mess, SOCKET s) {
 	switch (mess.code)
 	{
 	case SUCCESS:
-		std::cout << "Successful" << std::endl;
-		startMenuGame(s);
+		std::cout << "\nSuccessful" << std::endl;
+		if (mess.messType == LOGIN) {
+			startMenuGame(s);
+		}
 		break;
 	case INCORRECT_USER_NAME_OR_PASSWORD:
-		std::cout << "Error: Incorrect user or password" << std::endl;
+		std::cout << "\nError: Incorrect user or password" << std::endl;
 		break;
 	case ACC_HAS_BLOCKED:
-		std::cout << "Error: Account has blocked" << std::endl;
+		std::cout << "\nError: Account has blocked" << std::endl;
 		break;
 	case LOGGED_IN:
-		std::cout << "Error: Logged in !" << std::endl;
+		std::cout << "\nError: Logged in !" << std::endl;
 		break;
 	case NOT_LOGGED_IN:
-		std::cout << "Error: Not logged in !" << std::endl;
+		std::cout << "\nError: Not logged in !" << std::endl;
 		break;
 	case ALLREADY_LOGGED_IN:
-		std::cout << "Account is allready logged in another client";
+		std::cout << "\nAccount is allready logged in another client";
 	default:
 		break;
 	}
@@ -46,11 +46,11 @@ void handleMessage(Message mess, SOCKET s) {
 	return;
 }
 
+
 void Login(SOCKET s) {
 	Message message;
 	message.messType = LOGIN;
-	system("cls");
-	std::cout << "Username : ";
+	std::cout << "\nUsername : ";
 	gets_s(message.userName, 30);
 	std::cout << "Password : ";
 	gets_s(message.passWord, 30);
@@ -64,7 +64,6 @@ void Login(SOCKET s) {
 void Logout(SOCKET s) {
 	int ret;
 	Message message;
-	system("cls");
 	message.messType = LOGOUT;
 	ret = sendMessage(s, (char*)&message, sizeof(Message));
 

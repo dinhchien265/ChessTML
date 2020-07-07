@@ -2,8 +2,12 @@
 #include <iostream>
 #include "GameMenuGraphic.h"
 #include "DataIOClient.h"
+#include "BussinessClient.h"
 #include "WaitingGraphic.h"
 enum gameFunction { INVITE = 0, WAIT = 1, RANKING = 2, BACK = 3 };
+
+
+
 
 int handleGame(int status, SOCKET s) {
 	switch (status)
@@ -29,15 +33,15 @@ void startMenuGame(SOCKET s) {
 	GameParam params;
 	sf::RenderWindow window(sf::VideoMode(1280.f, 720.f), "Chess");
 	Menu menu(window.getSize().x, window.getSize().y);
-	//sf::Music music;
-	//if (!music.openFromFile("menu.wav")) {
-	//}
-	//music.play();
+
 	while (window.isOpen())
 	{
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
+			if (event.type == Event::Closed) {
+				window.close();
+			}
 			switch (event.type)
 			{
 			case sf::Event::KeyReleased:
@@ -70,16 +74,25 @@ void startMenuGame(SOCKET s) {
 									window.setVisible(false);
 									params.s = s;
 									params.mess = mess;
-									startGaneThread(params);
+									startGameThread(params);
+									startMenuGame(s);
 								}
 							}
+						}
+						else {
+							printf("\nKhong co nguoi choi nao ranh");
 						}
 						break;
 					case WAIT:
 						mess.messType = CHO_THACH_DAU;
 						handleWWaiting(mess, s, window);
+						startMenuGame(s);
 						break;
 					case RANKING:
+						mess.messType = RANK;
+						ret = sendMessage(s, (char*)&mess, sizeof(Message));
+						ret = recvMessage(s, (char*)&mess, sizeof(Message));
+						printf("\n%s", mess.opponent);
 						break;
 					case BACK:
 						window.close();
