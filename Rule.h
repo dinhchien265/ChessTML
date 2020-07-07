@@ -5,7 +5,7 @@
 #include<math.h>
 
 enum piece { wrook = -1, brook = 1, wknight = -2, bknight = 2, wbishop = -3, bbishop = 3, wqueen = -4, bqueen = 4, wking = -5, bking = 5, wpawn = -6, bpawn = 6 };
-
+// cheack a move
 int check(std::string str, int board[8][8],int turn) {
 	int x1 = str[0] - 97;
 	int y1 = str[1] - 49;
@@ -292,7 +292,7 @@ int check(std::string str, int board[8][8],int turn) {
 
 	return 0;
 }
-
+// print board to the console
 void printBoard(int board[8][8]) {
 	std::cout << std::endl;
 	for (int i = 7; i >= 0; i--) {

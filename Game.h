@@ -53,7 +53,7 @@ Vector2f toCoord(char a, char b)
 	int y = 7 - int(b) + 49;
 	return Vector2f(x*size, y*size);
 }
-
+// move a piece
 void move(std::string str)
 {
 	printf("\nGoi lenh move\n");
@@ -73,7 +73,7 @@ void move(std::string str)
 	if (str == "e1c1") if (position.find("e1") == -1) move("a1d1");
 	if (str == "e8c8") if (position.find("e8") == -1) move("a8d8");
 }
-
+// reload position on borad
 void loadPosition()
 {
 	int k = 0;
@@ -97,7 +97,7 @@ void loadPosition()
 	for (int i = 0; i < position.length(); i += 5)
 		move(position.substr(i, 4));
 }
-
+// update board
 void updateBoard(std::string str, int board[8][8]) {
 	int x1 = str[0] - 97;
 	int y1 = str[1] - 49;
@@ -106,13 +106,13 @@ void updateBoard(std::string str, int board[8][8]) {
 	board[y2][x2] = board[y1][x1];
 	board[y1][x1] = 0;
 }
-
+// recieve message from server
 unsigned __stdcall recvThread(void* param) {
 	int ret = recvMessage(client, (char*)&mess, sizeof(Message));
 	flag = true;
 	return 0;
 }
-
+// start game
 void startGameThread(GameParam params) {
 	SOCKET s = params.s;
 	mess = params.mess;
@@ -144,7 +144,7 @@ void startGameThread(GameParam params) {
 		while (window.pollEvent(e))
 		{
 			if (e.type == Event::Closed) {
-				mess.messType == Xin_thua;
+				mess.messType == SURRENDER;
 				int ret = sendMessage(s, (char*)&mess, sizeof(Message));
 				window.close();
 			}
@@ -182,7 +182,7 @@ void startGameThread(GameParam params) {
 						px = oldPos.x;
 						py = oldPos.y;
 						updateBoard(convertPosition, board);
-						mess.messType = GUI_NUOC_DI;
+						mess.messType = SEND_MOVE;
 						mess.move[0] = convertPosition[0];
 						mess.move[1] = convertPosition[1];
 						mess.move[2] = convertPosition[2];
@@ -201,7 +201,7 @@ void startGameThread(GameParam params) {
 		//comp move
 		if (flag == true)
 		{
-			if (mess.messType == GUI_NUOC_DI) {
+			if (mess.messType == SEND_MOVE) {
 				str = std::string(mess.move);
 				if (myColor == 1)
 					move(convertMove(str));
@@ -214,12 +214,12 @@ void startGameThread(GameParam params) {
 			else if (mess.messType == ENDGAME) {
 				if (mess.code == WIN) {
 					printf("\nYOU WIN");
-					printf("\n%s", mess.opponent);
+					printf("\n%s", mess.data);
 				}
 				else
 				{
 					printf("\nYOU LOSE");
-					printf("\n%s", mess.opponent);
+					printf("\n%s", mess.data);
 				}
 				return;
 			}

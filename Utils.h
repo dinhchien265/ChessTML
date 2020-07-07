@@ -2,7 +2,7 @@
 #pragma once
 #include "string.h"
 #include<iostream>
-
+// convert a move when player color is black
 std::string convertMove(std::string chessMove) {
 	std::string newChessMove = "a0a0";
 	newChessMove[0] = 'h' - chessMove[0] + 'a';

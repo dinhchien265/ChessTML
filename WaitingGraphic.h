@@ -36,7 +36,7 @@ void handleWWaiting(Message mess, SOCKET s, RenderWindow &previouswindow) {
 	ret = sendMessage(s, (char*)&mess, sizeof(Message));
 	ret = recvMessage(s, (char*)&mess, sizeof(Message));
 
-	if (mess.messType == THACH_DAU) {
+	if (mess.messType == CHALLENGER) {
 		RenderWindow windowChoose(VideoMode(1280.0f, 720.f), "Choose");
 		sf::Texture a;
 		if (!a.loadFromFile("test.png")) {
@@ -51,7 +51,7 @@ void handleWWaiting(Message mess, SOCKET s, RenderWindow &previouswindow) {
 		}
 		std::string temp = " da thach dau ban";
 		text.setFont(font);
-		text.setString(mess.opponent + temp);
+		text.setString(mess.data + temp);
 		backgroundChoose.setTexture(&a);
 		while (windowChoose.isOpen()) {
 			windowChoose.draw(backgroundChoose);
@@ -65,14 +65,14 @@ void handleWWaiting(Message mess, SOCKET s, RenderWindow &previouswindow) {
 				if (e.type == Event::KeyPressed) {
 					if (e.key.code == Keyboard::Num1)
 					{
-						mess.messType = TRA_LOI_THACH_DAU;
+						mess.messType = REP_CHALLENGER;
 						mess.code = ACCEPT;
 						ret = sendMessage(s, (char*)&mess, sizeof(Message));
 						windowChoose.close();
 					}
 					if (e.key.code == Keyboard::Num2)
 					{
-						mess.messType = TRA_LOI_THACH_DAU;
+						mess.messType = REP_CHALLENGER;
 						mess.code = REFUSE;
 						ret = sendMessage(s, (char*)&mess, sizeof(Message));
 						windowChoose.close();
@@ -81,7 +81,7 @@ void handleWWaiting(Message mess, SOCKET s, RenderWindow &previouswindow) {
 			}
 		}
 		ret = recvMessage(s, (char*)&mess, sizeof(Message));
-		if (mess.messType == TRA_LOI_THACH_DAU) {
+		if (mess.messType == REP_CHALLENGER) {
 			if (mess.code == SUCCESS) {
 				GameParam params = { s, mess };
 				previouswindow.setVisible(false);

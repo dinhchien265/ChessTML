@@ -8,7 +8,7 @@ enum gameFunction { INVITE = 0, WAIT = 1, RANKING = 2, BACK = 3 };
 
 
 
-
+// handle option from menu game
 int handleGame(int status, SOCKET s) {
 	switch (status)
 	{
@@ -25,7 +25,7 @@ int handleGame(int status, SOCKET s) {
 		break;
 	}
 }
-
+// open menu game
 void startMenuGame(SOCKET s) {
 	int ret;
 	Message mess;
@@ -59,16 +59,16 @@ void startMenuGame(SOCKET s) {
 					switch (menu.GetPressedItem())
 					{
 					case INVITE:
-						mess.messType = TIM_NGUOI_CHOI;
+						mess.messType = FIND_OPPONENT;
 						ret = sendMessage(s, (char*)&mess, sizeof(Message));
 						ret = recvMessage(s, (char*)&mess, sizeof(Message));
 						if (mess.code == SUCCESS) {
-							std::cout << "\nChon 1 nguoi : " << mess.opponent << "\n";
-							std::cin >> mess.opponent;
-							mess.messType = THACH_DAU;
+							std::cout << "\nChon 1 nguoi : " << mess.data << "\n";
+							std::cin >> mess.data;
+							mess.messType = CHALLENGER;
 							ret = sendMessage(s, (char*)&mess, sizeof(Message));
 							ret = recvMessage(s, (char*)&mess, sizeof(Message));
-							if (mess.messType == TRA_LOI_THACH_DAU) {
+							if (mess.messType == REP_CHALLENGER) {
 								if (mess.code == SUCCESS)
 								{
 									window.setVisible(false);
@@ -84,7 +84,7 @@ void startMenuGame(SOCKET s) {
 						}
 						break;
 					case WAIT:
-						mess.messType = CHO_THACH_DAU;
+						mess.messType = WAIT_CHALLENGER;
 						handleWWaiting(mess, s, window);
 						startMenuGame(s);
 						break;
@@ -92,7 +92,7 @@ void startMenuGame(SOCKET s) {
 						mess.messType = RANK;
 						ret = sendMessage(s, (char*)&mess, sizeof(Message));
 						ret = recvMessage(s, (char*)&mess, sizeof(Message));
-						printf("\n%s", mess.opponent);
+						printf("\n%s", mess.data);
 						break;
 					case BACK:
 						window.close();
